@@ -33,28 +33,35 @@ print(logo)
 player_cards = [choice(cards), choice(cards)]
 cpu_cards = [choice(cards), choice(cards)]
 
+cpu_score = sum(cpu_cards)
+while cpu_score < 17:
+    cpu_cards.append(choice(cards))
+    cpu_score = sum(cpu_cards)
 
+player_score = sum(player_cards)
 keep_hitting = True
 while keep_hitting:
-    player_score = sum(player_cards)
+
     print(f'    Your cards: {player_cards}, current score: {player_score}')
     print(f"    Computer's first card: {cpu_cards[0]}")
     hit = input("Type 'y' to get another card, type 'n' to pass: ").lower()
 
     if hit == 'y':
         player_cards.append(choice(cards))
+        player_score = sum(player_cards)
+        if player_score >= 21:
+            keep_hitting = False
     else:
-        print(f"    Your final hand: {player_cards}, final score: {player_score}")
-
-        cpu_score = sum(cpu_cards)
-        while cpu_score < 17:
-            cpu_cards.append(choice(cards))
-
-        print(f"    Computer's final hand: {cpu_cards}, final score: {cpu_score}")
-        if player_score > cpu_score:
-            print(f"You win :)")
-        elif player_score < cpu_score:
-            print(f"You lose :(")
-        else:
-            print(f"You draw.")
         keep_hitting = False
+
+print(f"    Your final hand: {player_cards}, final score: {player_score}")
+print(f"    Computer's final hand: {cpu_cards}, final score: {cpu_score}")
+if player_score > 21:
+    print("You went over. You lose :(")
+elif player_score < cpu_score < 22:
+    print(f"You lose :(")
+elif player_score > cpu_score:
+    print(f"You win :)")
+else:
+    print(f"You draw.")
+
