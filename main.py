@@ -15,6 +15,7 @@ from random import choice
 
 
 def replace_ace(hand):
+    """Replaces a value of an ace from 11 to 1"""
     i = hand.index(11)
     hand[i] = 1
 
