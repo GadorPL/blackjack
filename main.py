@@ -1,9 +1,3 @@
-# ############## Blackjack Project #####################
-
-# Difficulty Normal 😎: Use all Hints below to complete the project.
-# Difficulty Hard 🤔: Use only Hints 1, 2, 3 to complete the project.
-# Difficulty Extra Hard 😭: Only use Hints 1 & 2 to complete the project.
-# Difficulty Expert 🤯: Only use Hint 1 to complete the project.
 
 # ############## Our Blackjack House Rules #####################
 
@@ -17,15 +11,20 @@
 # # Cards are not removed from the deck as they are drawn.
 # # The computer is the dealer.
 
-# #################### Hints #####################
-
-# Hint 1: Go to this website and try out the Blackjack game:
-#   https://games.washingtonpost.com/games/blackjack/
-# Then try out the completed Blackjack project here:
-#   http://blackjack-final.appbrewery.repl.run
-
 from art import logo
 from random import choice
+
+
+def check_winner(user_score, computer_score):
+    if user_score > 21:
+        return "You went over. You lose :("
+    elif user_score < computer_score < 22:
+        return "You lose :("
+    elif user_score > computer_score:
+        return "You win :)"
+    else:
+        return "You draw."
+
 
 cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 print(logo)
@@ -56,12 +55,7 @@ while keep_hitting:
 
 print(f"    Your final hand: {player_cards}, final score: {player_score}")
 print(f"    Computer's final hand: {cpu_cards}, final score: {cpu_score}")
-if player_score > 21:
-    print("You went over. You lose :(")
-elif player_score < cpu_score < 22:
-    print(f"You lose :(")
-elif player_score > cpu_score:
-    print(f"You win :)")
-else:
-    print(f"You draw.")
+
+check_winner(player_score, cpu_score)
+
 
