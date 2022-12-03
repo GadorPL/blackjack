@@ -25,6 +25,11 @@ def check_winner(user_score, computer_score):
         print("You draw.")
 
 
+def replace_ace(hand):
+    i = hand.index(11)
+    hand[i] = 1
+
+
 def blackjack():
     cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
     print(logo)
@@ -36,6 +41,8 @@ def blackjack():
     while cpu_score < 17:
         cpu_cards.append(choice(cards))
         cpu_score = sum(cpu_cards)
+        if cpu_score > 21 and 11 in cpu_cards:
+            replace_ace(cpu_cards)
 
     player_score = sum(player_cards)
     keep_hitting = True
@@ -48,7 +55,9 @@ def blackjack():
         if hit == 'y':
             player_cards.append(choice(cards))
             player_score = sum(player_cards)
-            if player_score >= 21:
+            if player_score > 21 and 11 in player_cards:
+                replace_ace(player_cards)
+            elif player_score >= 21:
                 keep_hitting = False
         else:
             keep_hitting = False
@@ -66,3 +75,6 @@ def blackjack():
 
 
 blackjack()
+
+# ADD ace logic
+# check for 21 in opening hand
