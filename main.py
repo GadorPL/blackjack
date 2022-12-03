@@ -75,6 +75,3 @@ def blackjack():
 
 
 blackjack()
-
-# ADD ace logic
-# check for 21 in opening hand
