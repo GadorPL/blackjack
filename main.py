@@ -14,6 +14,11 @@ from art import logo
 from random import choice
 
 
+def replace_ace(hand):
+    i = hand.index(11)
+    hand[i] = 1
+
+
 def check_winner(user_score, computer_score):
     if user_score > 21:
         print("You went over. You lose :(")
@@ -23,11 +28,6 @@ def check_winner(user_score, computer_score):
         print("You win :)")
     else:
         print("You draw.")
-
-
-def replace_ace(hand):
-    i = hand.index(11)
-    hand[i] = 1
 
 
 def blackjack():
@@ -46,23 +46,27 @@ def blackjack():
             cpu_score = sum(cpu_cards)
 
     player_score = sum(player_cards)
-    keep_hitting = True
-    while keep_hitting:
 
-        print(f'    Your cards: {player_cards}, current score: {player_score}')
-        print(f"    Computer's first card: {cpu_cards[0]}")
-        hit = input("Type 'y' to get another card, type 'n' to pass: ").lower()
+    if player_score != 21:
+        keep_hitting = True
+        while keep_hitting:
 
-        if hit == 'y':
-            player_cards.append(choice(cards))
-            player_score = sum(player_cards)
-            if player_score > 21 and 11 in player_cards:
-                replace_ace(player_cards)
+            print(f'    Your cards: {player_cards}, current score: {player_score}')
+            print(f"    Computer's first card: {cpu_cards[0]}")
+            hit = input("Type 'y' to get another card, type 'n' to pass: ").lower()
+
+            if hit == 'y':
+                player_cards.append(choice(cards))
                 player_score = sum(player_cards)
-            elif player_score >= 21:
+                if player_score > 21 and 11 in player_cards:
+                    replace_ace(player_cards)
+                    player_score = sum(player_cards)
+                elif player_score >= 21:
+                    keep_hitting = False
+            else:
                 keep_hitting = False
-        else:
-            keep_hitting = False
+    else:
+        print("You hit an immediate blackjack !")
 
     print(f"    Your final hand: {player_cards}, final score: {player_score}")
     print(f"    Computer's final hand: {cpu_cards}, final score: {cpu_score}")
@@ -77,3 +81,5 @@ def blackjack():
 
 
 blackjack()
+
+# add check for immediate blackjack
