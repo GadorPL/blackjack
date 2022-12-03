@@ -20,15 +20,18 @@ def replace_ace(hand):
     hand[i] = 1
 
 
-def check_winner(user_score, computer_score):
-    if user_score > 21:
-        print("You went over. You lose :(")
-    elif user_score < computer_score < 22:
-        print("You lose :(")
-    elif user_score > computer_score:
-        print("You win :)")
+def check_winner(user_score, computer_score, immediate_win):
+    if not immediate_win:
+        if user_score > 21:
+            print("You went over. You lose :(")
+        elif user_score < computer_score < 22:
+            print("You lose :(")
+        elif user_score > computer_score:
+            print("You win :)")
+        else:
+            print("You draw.")
     else:
-        print("You draw.")
+        print("You won by immediate blackjack!")
 
 
 def blackjack():
@@ -49,6 +52,7 @@ def blackjack():
     player_score = sum(player_cards)
 
     if player_score != 21:
+        won_by_blackjack = False
         keep_hitting = True
         while keep_hitting:
 
@@ -67,12 +71,12 @@ def blackjack():
             else:
                 keep_hitting = False
     else:
-        print("You hit an immediate blackjack !")
+        won_by_blackjack = True
 
     print(f"    Your final hand: {player_cards}, final score: {player_score}")
     print(f"    Computer's final hand: {cpu_cards}, final score: {cpu_score}")
 
-    check_winner(player_score, cpu_score)
+    check_winner(player_score, cpu_score, won_by_blackjack)
 
     play_again = input("Do you want to play another hand of Blackjack? Type 'y' or 'n': ").lower()
     if play_again == 'y':
@@ -82,5 +86,3 @@ def blackjack():
 
 
 blackjack()
-
-# add check for immediate blackjack
