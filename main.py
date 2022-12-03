@@ -43,6 +43,7 @@ def blackjack():
         cpu_score = sum(cpu_cards)
         if cpu_score > 21 and 11 in cpu_cards:
             replace_ace(cpu_cards)
+            cpu_score = sum(cpu_cards)
 
     player_score = sum(player_cards)
     keep_hitting = True
@@ -57,6 +58,7 @@ def blackjack():
             player_score = sum(player_cards)
             if player_score > 21 and 11 in player_cards:
                 replace_ace(player_cards)
+                player_score = sum(player_cards)
             elif player_score >= 21:
                 keep_hitting = False
         else:
